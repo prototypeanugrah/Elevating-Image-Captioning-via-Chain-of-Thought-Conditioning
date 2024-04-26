@@ -20,7 +20,7 @@ python extract_images.py \
 
 ### Generate captions
 
-For the images in the dataset, generate captions using an image captioning model. Here, image captions are generated using the [llava-v1.6-mistral-7b-hf](https://huggingface.co/llava-hf/llava-v1.6-mistral-7b-hf) model.
+For the images in the dataset, generate captions using an image captioning model. Here, image captions are generated using the [llava-v1.6-mistral-7b-hf](https://llava-vl.github.io) model.
 
 For this analysis, we provide two separate prompts to the model to generate captions -
 1. Without Chain-of-thought prompt (A): ```[INST] <image>\nGenerate a caption for this image in 50 words[/INST]```
@@ -28,9 +28,9 @@ For this analysis, we provide two separate prompts to the model to generate capt
 
 Pass the generated captions to the CLIP ```ViT-L/14``` and the CLIP ```"ViT-B/32``` models.
 Evaluate which image better according to the following models -
-1. CLIP: ```ViT-L/14```
-2. CLIP: ```"ViT-B/32```
-3. LLaVA: ```llava-v1.6-mistral-7b-hf```
+1. [CLIP](https://github.com/openai/CLIP): ```ViT-L/14```
+2. [CLIP](https://github.com/openai/CLIP): ```"ViT-B/32```
+3. [LLaVA](https://huggingface.co/llava-hf/llava-v1.6-mistral-7b-hf): ```llava-v1.6-mistral-7b-hf```
 
 Running this script
 
