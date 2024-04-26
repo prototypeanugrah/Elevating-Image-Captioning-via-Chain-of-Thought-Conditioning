@@ -8,11 +8,7 @@ from PIL import Image
 
 def main(args):
 
-    if args.debug:
-        debug(args)
-        return None
-
-    assert os.path.exists(args.input_dir), f"Input file {args.input_dir} does not exist"
+    assert os.path.exists(args.input_file), f"Input file {args.input_file} does not exist"
 
     if not os.path.exists(args.output_dir):
         # Create the output directory if it does not exist
@@ -20,7 +16,7 @@ def main(args):
 
     out_path = os.path.join(args.output_dir, "visual_genome_available_images.csv")
 
-    with open(args.input_dir, "r") as f:
+    with open(args.input_file, "r") as f:
         objects = json.load(f)
 
     objects = pd.DataFrame(objects, columns=["image_url"])
@@ -71,7 +67,7 @@ def save_report(chunks, out_path, num_images):
             "llm_output",
             "clip_small_output",
             "clip_large_output",
-            "human_evaluator"
+            "human_evaluator",
         ]
     ]
 
@@ -80,37 +76,13 @@ def save_report(chunks, out_path, num_images):
     df.to_csv(out_path, index=False)
 
 
-def debug(args):
-    print("Debugging mode")
-    assert os.path.exists(args.input_dir), f"Input file {args.input_dir} does not exist"
-    if not os.path.exists(args.output_dir):
-        # Create the output directory if it does not exist
-        os.makedirs(args.output_dir, exist_ok=True)
-
-    user = str(args.output_dir).split("/")[-1]
-    out_path = os.path.join(args.output_dir, f"{user}_survey.csv")
-
-    objects = pd.DataFrame(
-        [{"image_url": "https://www.google.com"}], columns=["image_url"]
-    )
-
-    save_report(objects, out_path)
-    if os.path.exists(out_path):
-        print(f"Output file {out_path} exists")
-
-    # Remove the folder containing the output file even if the file exists
-    os.rmdir(args.output_dir)
-    if not os.path.exists(out_path):
-        print(f"Output file {out_path} removed successfully")
-
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Select the top report/sentences based on CXR-RePaiR method"
     )
 
     parser.add_argument(
-        "--input_dir",
+        "--input_file",
         type=str,
         required=True,
         help="File containing the URLs of the images to be extracted",
@@ -127,7 +99,6 @@ if __name__ == "__main__":
         required=True,
         help="How many images to run survey for",
     )
-    parser.add_argument("--debug", type=bool, required=False, help="Debugging mode")
 
     args = parser.parse_args()
 

@@ -16,15 +16,15 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 
 def main(args):
 
-    if not os.path.exists(args.survey_dir):
-        os.makedirs(args.survey_dir)
+    if not os.path.exists(args.output_dir):
+        os.makedirs(args.output_dir)
 
-    # if os.path.exists(os.path.join(args.survey_dir, f'{args.user_name}_survey.csv')):
+    # if os.path.exists(os.path.join(args.output_dir, f'{args.user_name}_survey.csv')):
     #     print(f"Survey file for {args.user_name} already exists. Please delete the file and try again.")
     #     return None
 
     # Get the images from the input file
-    input_df = pd.read_csv(args.input_dir)
+    input_df = pd.read_csv(args.input_file)
 
     # Use images that do not have any captions
     input_df = input_df[input_df["caption_A"].isnull() & input_df["caption_B"].isnull()]
@@ -93,7 +93,7 @@ def main(args):
         )
 
     # Save the results
-    results_df.to_csv(os.path.join(args.survey_dir, "generated_captions.csv"))
+    results_df.to_csv(os.path.join(args.output_dir, "generated_captions.csv"))
 
 
 def get_images(input_file, output_file, num_images=10):
@@ -256,16 +256,16 @@ if __name__ == "__main__":
         description="Generate captions for the given image and evaluate the captions using LLM and CLIP models."
     )
     parser.add_argument(
-        "--input_dir",
+        "--input_file",
         type=str,
         required=False,
         help="File containing the URLs of the images to be evaluated",
     )
     parser.add_argument(
-        "--survey_dir",
+        "--output_dir",
         type=str,
         required=True,
-        help="CSV file containing all the survey results conducted",
+        help="Directory to save the generated captions",
     )
     parser.add_argument(
         "--num_sample_images",
@@ -279,3 +279,5 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     main(args)
+    
+    # python generate_captions_predictions.py --input_file /path/to/input_file.csv --output_dir /path/to/output_dir --num_sample_images 500
