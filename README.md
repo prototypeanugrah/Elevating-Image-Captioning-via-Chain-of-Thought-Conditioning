@@ -4,8 +4,6 @@
 
 This project aims to conduct an analysis on prompt engineering for image captioning task.
 
-The pipeline for this project -
-
 ### Extract the images from the dataset
 
 This project uses the [Visual Genome](https://homes.cs.washington.edu/~ranjay/visualgenome/index.html) for evaluating the different models. Extract the image URLs from the objects.json file from the data page.
