@@ -1,4 +1,4 @@
-# Prompt Engineering Analysis on Image Captioning
+# Elevating Image Captioning via Chain-of-Thought Conditioning
 
 ## Overview
 
