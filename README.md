@@ -27,7 +27,7 @@ For this analysis, we provide two separate prompts to the model to generate capt
 Pass the generated captions to the CLIP ```ViT-L/14``` and the CLIP ```"ViT-B/32``` models.
 Evaluate which image better according to the following models -
 1. [CLIP Large](https://github.com/openai/CLIP): ```ViT-L/14```
-2. [CLIP Small](https://github.com/openai/CLIP): ```"ViT-B/32```
+2. [CLIP Base](https://github.com/openai/CLIP): ```"ViT-B/32```
 3. [LLaVA](https://huggingface.co/llava-hf/llava-v1.6-mistral-7b-hf): ```llava-v1.6-mistral-7b-hf```
 
 Running this script
